@@ -3,13 +3,7 @@ import { fetchAssessment } from '@/services/api';
 import Link from 'next/link';
 import { AssessmentClient } from './AssessmentClient';
 
-interface AssessmentPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function AssessmentPage({ params }: AssessmentPageProps) {
+export default async function AssessmentPage({ params }: { params: { id: string } }) {
   try {
     const assessment = await fetchAssessment(params.id);
 
