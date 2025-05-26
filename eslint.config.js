@@ -1,11 +1,12 @@
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
-import globals from 'globals';
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const reactPlugin = require('eslint-plugin-react');
+const reactHooksPlugin = require('eslint-plugin-react-hooks');
+const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
+const importPlugin = require('eslint-plugin-import');
+const globals = require('globals');
 
-export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.recommended, {
+module.exports = tseslint.config(eslint.configs.recommended, ...tseslint.configs.recommended, {
   files: ['**/*.{js,jsx,ts,tsx}'],
   languageOptions: {
     globals: {
@@ -25,6 +26,7 @@ export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.r
     react: reactPlugin,
     'react-hooks': reactHooksPlugin,
     'jsx-a11y': jsxA11yPlugin,
+    import: importPlugin,
   },
   rules: {
     'react/react-in-jsx-scope': 'off',
@@ -44,6 +46,9 @@ export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.r
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      typescript: {},
     },
   },
 });
