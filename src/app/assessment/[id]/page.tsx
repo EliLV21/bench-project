@@ -3,9 +3,14 @@ import { fetchAssessment } from '@/services/api';
 import Link from 'next/link';
 import { AssessmentClient } from './AssessmentClient';
 
-export default async function AssessmentPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function AssessmentPage({ params }: PageProps) {
   try {
-    const assessment = await fetchAssessment(params.id);
+    const param = await params;
+    const assessment = await fetchAssessment(param.id);
 
     if (!assessment) {
       return (
