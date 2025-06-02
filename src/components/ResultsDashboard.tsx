@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { fetchResults } from '@/services/api';
 import { Spinner } from '@/components/ui/spinner';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { TableBodyResults } from './table-row-results';
 
 interface Result {
   id: string;
@@ -60,19 +61,7 @@ export function ResultsDashboard() {
               <TableHead className="text-right">Score</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {results.map(result => (
-              <TableRow
-                key={result.id}
-                className="cursor-pointer hover:bg-muted/50"
-                onClick={() => setSelectedResult(result)}
-              >
-                <TableCell>{new Date(result.date).toLocaleDateString()}</TableCell>
-                <TableCell>{result.id}</TableCell>
-                <TableCell className="text-right">{result.score}%</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBodyResults results={results} setSelectedResult={setSelectedResult} />
         </Table>
       </div>
 

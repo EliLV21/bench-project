@@ -7,6 +7,11 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+export async function generateStaticParams() {
+  // Since we're using mock data, we'll return a few static assessment IDs
+  return [{ id: 'assessment-1' }, { id: 'assessment-2' }, { id: 'assessment-3' }];
+}
+
 export default async function AssessmentPage({ params }: PageProps) {
   try {
     const param = await params;
