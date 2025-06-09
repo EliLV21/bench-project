@@ -16,14 +16,11 @@ export interface AssessmentResult {
   score: number;
 }
 
-export const fetchAssessment = async (id: string): Promise<Assessment | null> => {
-  // In a real application, this would make an API call to fetch the assessment
-  // For now, we'll return mock data for any valid ID
-  if (!id) return null;
-
-  return {
-    id,
-    title: `Assessment ${id}`,
+// Mock data for assessments
+const mockAssessments: Record<string, Assessment> = {
+  '123': {
+    id: '123',
+    title: 'Assessment 123',
     questions: [
       {
         id: 'q1',
@@ -44,7 +41,63 @@ export const fetchAssessment = async (id: string): Promise<Assessment | null> =>
         ],
       },
     ],
-  };
+  },
+  '1': {
+    id: '1',
+    title: 'Assessment 1',
+    questions: [
+      {
+        id: 'q1',
+        text: 'What is your favorite color?',
+        options: [
+          { id: 'a1', label: 'Red' },
+          { id: 'b1', label: 'Blue' },
+          { id: 'c1', label: 'Green' },
+        ],
+      },
+      {
+        id: 'q2',
+        text: 'What is your favorite animal?',
+        options: [
+          { id: 'x2', label: 'Dog' },
+          { id: 'y2', label: 'Cat' },
+          { id: 'z2', label: 'Bird' },
+        ],
+      },
+    ],
+  },
+};
+
+export const fetchAssessment = async (id: string): Promise<Assessment | null> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const assessment = mockAssessments[id];
+
+  if (!assessment) {
+    return null;
+  }
+
+  // Validate assessment structure
+  if (!assessment.questions || !Array.isArray(assessment.questions)) {
+    return null;
+  }
+
+  // Validate each question
+  const validQuestions = assessment.questions.every(
+    q =>
+      q &&
+      typeof q.id === 'string' &&
+      typeof q.text === 'string' &&
+      Array.isArray(q.options) &&
+      q.options.every(o => o && typeof o.id === 'string' && typeof o.label === 'string')
+  );
+
+  if (!validQuestions) {
+    return null;
+  }
+
+  return assessment;
 };
 
 export const submitResponse = async (
