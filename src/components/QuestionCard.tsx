@@ -10,15 +10,15 @@ interface Question {
 
 interface QuestionCardProps {
   question: Question;
-  onSelect: (optionId: string) => void;
+  // onSelect: (optionId: string) => void;
 }
 
-export function QuestionCard({ question, onSelect }: QuestionCardProps) {
+export function QuestionCard({ question }: QuestionCardProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
-    onSelect(optionId);
+    // onSelect(optionId);
   };
 
   return (

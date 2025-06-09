@@ -15,13 +15,7 @@ export function AssessmentClient({ assessment }: AssessmentClientProps) {
       <h1 className="text-3xl font-bold mb-8">{assessment.title}</h1>
       <div className="space-y-8">
         {assessment.questions.map(question => (
-          <QuestionCard
-            key={question.id}
-            question={question}
-            onSelect={optionId => {
-              console.log(`Selected option ${optionId} for question ${question.id}`);
-            }}
-          />
+          <QuestionCard key={question.id} question={question} />
         ))}
       </div>
       <div className="mt-8">

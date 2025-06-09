@@ -16,10 +16,14 @@ export interface AssessmentResult {
   score: number;
 }
 
-export const fetchAssessment = async (id: string): Promise<Assessment> => {
+export const fetchAssessment = async (id: string): Promise<Assessment | null> => {
+  // In a real application, this would make an API call to fetch the assessment
+  // For now, we'll return mock data for any valid ID
+  if (!id) return null;
+
   return {
     id,
-    title: 'Sample Assessment',
+    title: `Assessment ${id}`,
     questions: [
       {
         id: 'q1',

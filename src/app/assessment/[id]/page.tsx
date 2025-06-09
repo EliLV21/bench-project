@@ -2,20 +2,35 @@ import React from 'react';
 import { fetchAssessment } from '@/services/api';
 import Link from 'next/link';
 import { AssessmentClient } from './AssessmentClient';
+import { Metadata } from 'next';
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `Assessment ${params.id}`,
+  };
 }
 
 export async function generateStaticParams() {
-  // Since we're using mock data, we'll return a few static assessment IDs
-  return [{ id: 'assessment-1' }, { id: 'assessment-2' }, { id: 'assessment-3' }];
+  // Generate a range of assessment IDs for static export
+  const assessmentIds = Array.from({ length: 100 }, (_, i) => ({
+    id: (i + 1).toString(),
+  }));
+
+  // Add some specific assessment IDs
+  const specificIds = ['assessment-1', 'assessment-2', 'assessment-3'].map(id => ({
+    id,
+  }));
+
+  return [...assessmentIds, ...specificIds];
 }
 
 export default async function AssessmentPage({ params }: PageProps) {
   try {
-    const param = await params;
-    const assessment = await fetchAssessment(param.id);
+    const assessment = await fetchAssessment(params.id);
 
     if (!assessment) {
       return (

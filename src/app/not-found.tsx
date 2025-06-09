@@ -1,26 +1,6 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function NotFound() {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Check if the URL matches our assessment pattern
-    const path = window.location.pathname;
-    if (path.includes('/assessment/')) {
-      // Extract the ID from the URL
-      const id = path.split('/assessment/')[1];
-      if (id) {
-        // Redirect to the correct path
-        router.push(`/assessment/${id}`);
-        return;
-      }
-    }
-  }, [router]);
-
   return (
     <div className="container mx-auto py-16 text-center">
       <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
